@@ -1,0 +1,32 @@
+{
+  "rules": {
+    /* 
+      KSNDMC Portal Database Rules
+      Note: This application currently manages authentication at the application level.
+      For production environments, integration with Firebase Auth is recommended.
+    */
+    
+    "employees": {
+      ".read": "true",
+      ".write": "true",
+      // Optimized indexes for login lookups and registry searches
+      ".indexOn": ["employeeId", "username", "section"]
+    },
+    
+    "attendance": {
+      ".read": "true",
+      ".write": "true",
+      // Sub-nodes are organized by date, then employeeId
+      "$date": {
+        ".indexOn": ["employeeId", "status"]
+      }
+    },
+    
+    "leaves": {
+      ".read": "true",
+      ".write": "true",
+      // Optimized indexes for dashboard stats and employee history filtering
+      ".indexOn": ["employeeId", "status", "startDate"]
+    }
+  }
+}
